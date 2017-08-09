@@ -1,0 +1,8 @@
+
+$user = "admin.verstegen@bechtle.ms"
+$userphoto = "Pfad"
+Set-UserPhoto -Identity $user -PictureData ([System.IO.File]::ReadAllBytes(C:\Users\stephan.verstegen\Pictures\gps.jpg)) -Confirm:$false
+
+https://blogs.msdn.microsoft.com/vilath/2015/10/13/bulk-import-pictures-in-office-365-users/
+
+Import-csv D:\KUNDEN\GPS\userliste.csv | % { Set-UserPhoto –Identity $_.username -PictureData ([System.IO.File]::ReadAllBytes("C:\Users\stephan.verstegen\Pictures\gps.jpg")) -Confirm:$false }

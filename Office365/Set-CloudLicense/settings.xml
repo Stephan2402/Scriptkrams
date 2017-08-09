@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<Settings>
+	<!-- Domain Controller for local AD queries, e.g. mydc.local.lan:4711  -->
+	<DomainController>verstdc01.demolab.de:3268</DomainController>
+	<MsolUserMaxResults>15000</MsolUserMaxResults>
+	<MsolServiceDomain>bechtle042017.onmicrosoft.com</MsolServiceDomain>
+	<!-- Credential settings are used with script switch UsePasswordFile -->
+	<Credentials>
+		<!-- Login to Office 365 -->
+		<CloudLogin>Stephan@bechtle042017.onmicrosoft.com</CloudLogin>
+		<!-- Login to local Active Directory  -->
+		<LocalLogin>adm.sv@demolab.de</LocalLogin>
+		<!-- Full path to encrypted password -->
+		<PasswordFile>AESpassword.txt</PasswordFile>
+		<!-- Full path to decryption key file  -->
+		<KeyFile>AES.key</KeyFile>
+	</Credentials>
+	<Licenses>
+		<!-- Default license assigned to users -->
+		<License Name='Default'>
+			<!-- Default License configuration is added to new users -->
+			<MsolAccountSku>bechtle042017:ENTERPRISEPACK</MsolAccountSku>
+            <DisabledPlans>Deskless,FLOW_O365_P2,POWERAPPS_O365_P2,Teams1,PROJECTWORKMANAGEMENT,SWAY,YAMMER_Enterprise,RMS_S_ENTERPRISE,OFFICESUBSCRIPTION,EXCHANGE_S_ENTERPRISE</DisabledPlans>
+            <RemovedPlans></RemovedPlans>
+            <UserSource Server='demolab.de' LdapFilter='(memberof:1.2.840.113556.1.4.1941:=CN=O365_E3_Std,OU=O365,DC=demolab,DC=de)' Description='Groups from Default Sync Group' />
+		</License>
+        <License Name='PROJECTWORKMANAGEMENT'>
+			<!-- Planner configuration is added to existing users -->
+			<MsolAccountSku>bechtle042017:ENTERPRISEPACK</MsolAccountSku>
+            <DisabledPlans>Deskless,FLOW_O365_P2,POWERAPPS_O365_P2,Teams1,SWAY,YAMMER_Enterprise,RMS_S_ENTERPRISE,OFFICESUBSCRIPTION,EXCHANGE_S_ENTERPRISE</DisabledPlans>
+            <RemovedPlans>Deskless,FLOW_O365_P2,POWERAPPS_O365_P2,Teams1,PROJECTWORKMANAGEMENT,SWAY,YAMMER_Enterprise,RMS_S_ENTERPRISE,OFFICESUBSCRIPTION,EXCHANGE_S_ENTERPRISE</RemovedPlans>
+            <UserSource Server='demolab.de' LdapFilter='(memberof:1.2.840.113556.1.4.1941:=CN=O365_E3_Extra,OU=O365,DC=demolab,DC=de)' Description='Groups from Planner Sync Group' />
+		</License>
+		<License Name='EMS-Default'>
+			<!-- Default EMS License -->
+			<MsolAccountSku>bechtle042017:EMSPREMIUM</MsolAccountSku>
+            <DisabledPlans>ADALLOM_S_STANDALONE,RMS_S_PREMIUM2,RMS_S_PREMIUM,RMS_S_ENTERPRISE,INTUNE_A,MFA_PREMIUM</DisabledPlans>
+            <RemovedPlans></RemovedPlans>
+            <UserSource Server='demolab.de' LdapFilter='(memberof:1.2.840.113556.1.4.1941:=CN=O365_EMS_Std,OU=O365,DC=demolab,DC=de)' Description='Groups from Default EMS Sync Group' />
+		</License>
+		<License Name='MFA_PREMIUM'>
+			<!-- Default EMS License -->
+			<MsolAccountSku>bechtle042017:EMSPREMIUM</MsolAccountSku>
+            <DisabledPlans>ADALLOM_S_STANDALONE,RMS_S_PREMIUM2,RMS_S_PREMIUM,RMS_S_ENTERPRISE,INTUNE_A</DisabledPlans>
+            <RemovedPlans>ADALLOM_S_STANDALONE,RMS_S_PREMIUM2,RMS_S_PREMIUM,RMS_S_ENTERPRISE,INTUNE_A,MFA_PREMIUM</RemovedPlans>
+            <UserSource Server='demolab.de' LdapFilter='(memberof:1.2.840.113556.1.4.1941:=CN=O365_EMS_MFA,OU=O365,DC=demolab,DC=de)' Description='Groups from MFA Sync Group' />
+		</License>
+	</Licenses>
+</Settings>

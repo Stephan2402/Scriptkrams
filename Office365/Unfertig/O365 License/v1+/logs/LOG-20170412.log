@@ -1,0 +1,19 @@
+2017-04-12 14:36: LOG FILE CREATED ##############################
+TIMESTAMP       : PROCESS ID - SEVERITY - MESSAGE
+2017-04-12 14:36: 6732       - Info     - Script started ####################################################
+2017-04-12 14:36: 6732       - Info     - Query for manual account credentials
+2017-04-12 14:36: 6732       - Info     - Fetching all UNLICENSED users from Azure AD
+2017-04-12 14:36: 6732       - Info     - Get-ActiveDirectoryUsers Groups from Default Sync Group | Server demolab.de | (memberof:1.2.840.113556.1.4.1941:=CN=O365_E3_Std,OU=O365,DC=demolab,DC=de)
+2017-04-12 14:36: 6732       - Info     - Objects fetched from demolab.de: 2
+2017-04-12 14:36: 6732       - Info     - Validating Sync_VerstDC01_83c498bd39ed@bechtle042017.onmicrosoft.com
+2017-04-12 14:36: 6732       - Info     - Skipping due to UPN *@bechtle042017.onmicrosoft.com
+2017-04-12 14:36: 6732       - Info     - Validating Bianca.schulten@test.verstegen-online.de
+2017-04-12 14:36: 6732       - Info     - Matched User: Bianca.schulten@test.verstegen-online.de
+2017-04-12 14:36: 6732       - Info     - Usage location set in AAD: [DE]
+2017-04-12 14:36: 6732       - Info     - Add license bechtle042017:ENTERPRISEPACK
+2017-04-12 14:36: 6732       - Info     - Validating lisa.schulten@test.verstegen-online.de
+2017-04-12 14:36: 6732       - Info     - Matched User: lisa.schulten@test.verstegen-online.de
+2017-04-12 14:36: 6732       - Info     - Usage location set in AAD: [DE]
+2017-04-12 14:36: 6732       - Info     - Add license bechtle042017:ENTERPRISEPACK
+2017-04-12 14:36: 6732       - Info     - Script runtime: 00:00:25
+2017-04-12 14:36: 6732       - Info     - Script finished

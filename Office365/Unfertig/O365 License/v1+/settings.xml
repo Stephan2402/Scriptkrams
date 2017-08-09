@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<Settings>
+	<!-- Domain Controller for local AD queries, e.g. mydc.local.lan:4711  -->
+	<DomainController>verstdc01.demolab.de:3268</DomainController>
+	<MsolUserMaxResults>15000</MsolUserMaxResults>
+	<MsolServiceDomain>bechtle042017.onmicrosoft.com</MsolServiceDomain>
+	<!-- Active Directory sources for Office 3265 users -->
+	<AdUserSources>
+		<UserSource Server='demolab.de' LdapFilter='(memberof:1.2.840.113556.1.4.1941:=CN=O365_E3_Std,OU=O365,DC=demolab,DC=de)' Description='Groups from Default Sync Group' />
+	</AdUserSources>
+	<!-- Credential settings are used with script switch UsePasswordFile -->
+	<Credentials>
+		<!-- Login to Office 365 -->
+		<CloudLogin>Stephan@bechtle042017.onmicrosoft.com</CloudLogin>
+		<!-- Login to local Active Directory  -->
+		<LocalLogin>adm.sv@demolab.de</LocalLogin>
+		<!-- Full path to encrypted password -->
+		<PasswordFile>C:\Users\adm.sv\Desktop\AESpassword.txt</PasswordFile>
+		<!-- Full path to decryption key file  -->
+		<KeyFile>C:\Users\adm.sv\Desktop\AES.key</KeyFile>
+	</Credentials>
+	<Licenses>
+		<!-- Default license assigned to users -->
+		<License Name='Default'>
+			<!-- Default License configurationis added to new users -->
+			<MsolAccountSku>bechtle042017:ENTERPRISEPACK</MsolAccountSku>
+			<DisabledPlans>"EXCHANGE_S_ENTERPRISE"</DisabledPlans>
+		</License>
+        <License Name='Test'>
+			<!-- Default License configurationis added to new users -->
+			<MsolAccountSku>bechtle042017:ENTERPRISEPACK</MsolAccountSku>
+		</License>
+	</Licenses>
+</Settings>
