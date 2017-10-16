@@ -1,0 +1,40 @@
+<# 
+    .SYNOPSIS 
+    <DESCRIPTION>
+	
+    Stephan Verstegen 
+	
+    THIS CODE IS MADE AVAILABLE AS IS, WITHOUT WARRANTY OF ANY KIND. THE ENTIRE  
+    RISK OF THE USE OR THE RESULTS FROM THE USE OF THIS CODE REMAINS WITH THE USER. 
+	
+    Version 1.0, 2017-08-09
+	
+    Please send ideas, comments and suggestions to support@verstegen-online.de
+	
+    .LINK 
+    
+    .LINK
+    
+    .DESCRIPTION 
+	<DESCRIPTION>
+    
+    .NOTES 
+    Requirements 
+    -
+    
+    Revision History 
+    -------------------------------------------------------------------------------- 
+    1.0      Initial release 
+    
+	
+	
+    .PARAMETER
+	
+    .PARAMETER 
+	
+    .PARAMETER 
+	
+    .EXAMPLE
+    
+    
+#>
