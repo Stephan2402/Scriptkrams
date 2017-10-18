@@ -53,17 +53,15 @@ Param(
   [string]$gpoTemplate = 'Verstegen_ADM_Server',
   [string]$ADMTemplate = 'ADM_LocalAdministratorsTemplate',
   [string]$RDPTemplate = 'ADM_RemoteDesktopUsersTemplate',
-
 # Settings
-  [string]$ouBaseDN = 'OU=VerstegenTest,DC=BechtleMS,DC=local',
-  [string]$servername = 'Testserver'
-
+  [string]$ouBaseDN = 'OU=Servers,OU=VerstegenTest,DC=BechtleMS,DC=local',
+  [string]$servername = 'Testserver',
 # Description
   [string]$ouDescription = 'OU Description',
   [string]$groupDescription = 'Group Description',
-
 # Path
-  [string]$gpoExportPath = 'C:\scripts\GPOBackup'
+  [string]$gpoExportPath = 'C:\scripts\GPOBackup',
+  [string]$groupPath = 'OU=Groups,OU=VerstegenTest,DC=BechtleMS,DC=local'
 
 )
 
@@ -92,8 +90,8 @@ function Create-ADServerGroups {
     $serverDN = "OU=" + $servername + "," + $ouBaseDN
     $oucheck = [adsi]::Exists("LDAP://$serverDN")
     
-    if ($oucheck = "False") {
-        $logger.Write("Server OU not found. Please create server OU!")
+    if ($oucheck -eq $false) {
+        $logger.Write("Server OU not found. Please let create server OU from function before")
         Exit
     }
     else {
@@ -102,23 +100,39 @@ function Create-ADServerGroups {
         $newADMgroup = $groupPrefixADM + $servernameUPPER
         $newRDPgroup = $groupPrefixRDP + $servernameUPPER
 
-        $groupcheck = 
-        # Check if groups already exist
-        if ($groupcheck = "False") {
-            $logger.Write("New group name {1} already exist!" -f $newADMgroup)
-        }
-        else {
-            
-        }
-    }
-}
+        Write-Host $newADMgroup
+        Write-Host $newRDPgroup
+
+        # Check if ADM group already exist
+        try {
+            Get-ADGroup -Identity $newADMgroup -ErrorAction Stop
+            $logger.Write("New group name {0} already exist!" -f $newADMgroup)
+        } # end try
+        catch {
+            $logger.Write("Create new AD Group: {0}" -f $newADMgroup)
+            New-ADGroup -Name $newADMgroup -DisplayName $newADMgroup -Description $groupDescription -Path $groupPath -GroupCategory Security -GroupScope DomainLocal -Confirm:$false 
+
+        } # end catch
+
+        # Check if RDP group already exist
+        try {
+            Get-ADGroup -Identity $newRDPgroup -ErrorAction Stop
+            $logger.Write("New group name {0} already exist!" -f $newADMgroup)
+        } # end try
+        catch {
+            $logger.Write("Create new AD Group: {0}" -f $newADMgroup)
+            New-ADGroup -Name $newRDPgroup -DisplayName $newRDPgroup -Description $groupDescription -Path $groupPath -GroupCategory Security -GroupScope DomainLocal -Confirm:$false 
+
+        } # end catch
+    } #end else
+} # end function
 
 function Create-ADOrganizationalUnit {
 
     # Check if Base OU Exist
     $oucheck = [adsi]::Exists("LDAP://$ouBaseDN")
 
-    if ($oucheck = "False" ) {
+    if ($oucheck -eq $false) {
         $logger.Write("Base OU not found. Please correct Base OU!")
         Exit
     } 
@@ -130,13 +144,13 @@ function Create-ADOrganizationalUnit {
         # Check if new OU already exist
         $oucheck = [adsi]::Exists("LDAP://$newDN")
 
-        if ($oucheck = "False") {
+        if ($oucheck -eq $true) {
             $logger.Write("OU for server already exist! Skip OU creation")
         }
         else {
             # Create new OU
             New-ADOrganizationalUnit -Name $newOU -Description $ouDescription -Path $ouBaseDN -ProtectedFromAccidentalDeletion $true
-            $logger.Write(("New OU {1} was created at {2}" -f $newOU, $ouBaseDN))
+            $logger.Write(("New OU {0} was created at {1}" -f $newOU, $ouBaseDN))
         } # End If
     } # End If
     
@@ -149,6 +163,12 @@ function Create-ServerGPO {
 
 
 ## MAIN ####################################################################################################
+
+# Call Create-ADOrganizationalUnit
+Create-ADOrganizationalUnit
+
+# Call Create-ADServerGroups
+Create-ADServerGroups
 
 # We are finsihed
 $stopWatch.Stop()
